@@ -1,0 +1,7 @@
+,Accuracy
+Naive Bayes,0.375
+KNN,0.5
+Logistic Regression,0.625
+Decision Tree,0.25
+Random Forest,0.625
+Gradient Boosting,0.25
