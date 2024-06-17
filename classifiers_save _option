@@ -1,0 +1,474 @@
+# # import numpy as np
+# # import pandas as pd
+# # import matplotlib.pyplot as plt
+# # import tensorflow as tf
+# # from sklearn.model_selection import train_test_split
+# # from sklearn.metrics import accuracy_score, classification_report, roc_curve, auc
+# # from sklearn.naive_bayes import GaussianNB
+# # from sklearn.neighbors import KNeighborsClassifier
+# # from sklearn.linear_model import LogisticRegression
+# # from sklearn.tree import DecisionTreeClassifier
+# # from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
+# #
+# # # Suppress warnings
+# # import warnings
+# # warnings.filterwarnings('ignore', category=Warning)
+# #
+# # # Load data
+# # s_files = ["s00.csv", "s01.csv", "s02.csv", "s03.csv", "s04.csv", "s05.csv", "s06.csv", "s07.csv",
+# #            "s08.csv", "s09.csv", "s10.csv", "s11.csv", "s12.csv", "s13.csv", "s14.csv", "s15.csv",
+# #            "s16.csv", "s17.csv", "s18.csv", "s19.csv", "s20.csv", "s21.csv", "s22.csv", "s23.csv",
+# #            "s24.csv", "s25.csv", "s26.csv", "s27.csv", "s28.csv", "s29.csv", "s30.csv", "s31.csv",
+# #            "s32.csv", "s33.csv", "s34.csv", "s35.csv"]
+# #
+# # s_list = [pd.read_csv(f"D:\\data\\Data2\\{file}", header=None).transpose().to_numpy() for file in s_files]
+# #
+# # dataset = np.array(s_list)
+# #
+# # # Target labels
+# # y = np.array([0, 1] * 18)  # Assuming there are 36 samples and their corresponding labels
+# #
+# # # Reshape the dataset
+# # dataset = dataset.reshape(36, 1, 760, 775)
+# #
+# # # Setting global random seed for model stability
+# # seed = 42
+# # tf.random.set_seed(seed)
+# #
+# # # Split the data into training and testing sets
+# # X_train, X_test, y_train, y_test = train_test_split(dataset, y, test_size=0.2, random_state=42)
+# #
+# # # Naive Bayes classifier
+# # nb_model = GaussianNB()
+# # nb_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+# # nb_preds = nb_model.predict(X_test.reshape(X_test.shape[0], -1))
+# #
+# # # Evaluate Naive Bayes classifier
+# # print("Naive Bayes Accuracy:", accuracy_score(y_test, nb_preds))
+# # print("Naive Bayes Classification Report:")
+# # print(classification_report(y_test, nb_preds))
+# #
+# # # Calculate and plot ROC curve for Naive Bayes
+# # # nb_probs = nb_model.predict_proba(X_test.reshape(X_test.shape[0], -1))[:, 1]
+# # # fpr, tpr, thresholds = roc_curve(y_test, nb_probs)
+# # # roc_auc = auc(fpr, tpr)
+# # #
+# # # plt.figure(figsize=(8, 6))
+# # # plt.plot(fpr, tpr, color='blue', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)
+# # # plt.plot([0, 1], [0, 1], color='red', lw=2, linestyle='--')
+# # # plt.xlim([0.0, 1.0])
+# # # plt.ylim([0.0, 1.05])
+# # # plt.xlabel('False Positive Rate')
+# # # plt.ylabel('True Positive Rate')
+# # # plt.title('Receiver Operating Characteristic (ROC) Curve')
+# # # plt.legend(loc="lower right")
+# # # plt.show()
+# #
+# # # K-Nearest Neighbors (KNN) classifier
+# # knn_model = KNeighborsClassifier(n_neighbors=5)
+# # knn_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+# # knn_preds = knn_model.predict(X_test.reshape(X_test.shape[0], -1))
+# #
+# # # Evaluate KNN classifier
+# # print("KNN Accuracy:", accuracy_score(y_test, knn_preds))
+# # print("KNN Classification Report:")
+# # print(classification_report(y_test, knn_preds))
+# #
+# # # Calculate and plot ROC curve for KNN
+# # # knn_probs = knn_model.predict_proba(X_test.reshape(X_test.shape[0], -1))[:, 1]
+# # # fpr, tpr, thresholds = roc_curve(y_test, knn_probs)
+# # # roc_auc = auc(fpr, tpr)
+# # #
+# # # plt.figure(figsize=(8, 6))
+# # # plt.plot(fpr, tpr, color='blue', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)
+# # # plt.plot([0, 1], [0, 1], color='red', lw=2, linestyle='--')
+# # # plt.xlim([0.0, 1.0])
+# # # plt.ylim([0.0, 1.05])
+# # # plt.xlabel('False Positive Rate')
+# # # plt.ylabel('True Positive Rate')
+# # # plt.title('Receiver Operating Characteristic (ROC) Curve')
+# # # plt.legend(loc="lower right")
+# # # plt.show()
+# #
+# # # Logistic Regression
+# # logistic_model = LogisticRegression()
+# # logistic_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+# # logistic_preds = logistic_model.predict(X_test.reshape(X_test.shape[0], -1))
+# # print("Logistic Regression Accuracy:", accuracy_score(y_test, logistic_preds))
+# # print("Logistic Regression Classification Report:")
+# # print(classification_report(y_test, logistic_preds))
+# #
+# # # Calculate and plot ROC curve for Logistic Regression
+# # # logistic_probs = logistic_model.predict_proba(X_test.reshape(X_test.shape[0], -1))[:, 1]
+# # # fpr, tpr, thresholds = roc_curve(y_test, logistic_probs)
+# # # roc_auc = auc(fpr, tpr)
+# # #
+# # # plt.figure(figsize=(8, 6))
+# # # plt.plot(fpr, tpr, color='blue', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)
+# # # plt.plot([0, 1], [0, 1], color='red', lw=2, linestyle='--')
+# # # plt.xlim([0.0, 1.0])
+# # # plt.ylim([0.0, 1.05])
+# # # plt.xlabel('False Positive Rate')
+# # # plt.ylabel('True Positive Rate')
+# # # plt.title('Receiver Operating Characteristic (ROC) Curve')
+# # # plt.legend(loc="lower right")
+# # # plt.show()
+# #
+# #
+# # # Decision Tree
+# # decision_tree_model = DecisionTreeClassifier(random_state=50)
+# # decision_tree_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+# # decision_tree_preds = decision_tree_model.predict(X_test.reshape(X_test.shape[0], -1))
+# # print("Decision Tree Accuracy:", accuracy_score(y_test, decision_tree_preds))
+# # print("Decision Tree Classification Report:")
+# # print(classification_report(y_test, decision_tree_preds))
+# #
+# # # Calculate and plot ROC curve for Decision Tree
+# # # decision_tree_probs = decision_tree_model.predict_proba(X_test.reshape(X_test.shape[0], -1))[:, 1]
+# # # fpr, tpr, thresholds = roc_curve(y_test, decision_tree_probs)
+# # # roc_auc = auc(fpr, tpr)
+# # #
+# # # plt.figure(figsize=(8, 6))
+# # # plt.plot(fpr, tpr, color='blue', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)
+# # # plt.plot([0, 1], [0, 1], color='red', lw=2, linestyle='--')
+# # # plt.xlim([0.0, 1.0])
+# # # plt.ylim([0.0, 1.05])
+# # # plt.xlabel('False Positive Rate')
+# # # plt.ylabel('True Positive Rate')
+# # # plt.title('Receiver Operating Characteristic (ROC) Curve')
+# # # plt.legend(loc="lower right")
+# # # plt.show()
+# #
+# #
+# # # Random Forest
+# # random_forest_model = RandomForestClassifier(random_state=42)
+# # # Reshape input arrays to be 2D
+# # X_train_reshaped = X_train.reshape(X_train.shape[0], -1)
+# # X_test_reshaped = X_test.reshape(X_test.shape[0], -1)
+# # random_forest_model.fit(X_train_reshaped, y_train)
+# # random_forest_preds = random_forest_model.predict(X_test_reshaped)
+# # print("Random Forest Accuracy:", accuracy_score(y_test, random_forest_preds))
+# # print("Random Forest Classification Report:")
+# # print(classification_report(y_test, random_forest_preds))
+# #
+# # # Calculate and plot ROC curve for Random Forest
+# # # random_forest_probs = random_forest_model.predict_proba(X_test_reshaped)[:, 1]
+# # # fpr, tpr, thresholds = roc_curve(y_test, random_forest_probs)
+# # # roc_auc = auc(fpr, tpr)
+# # #
+# # # plt.figure(figsize=(8, 6))
+# # # plt.plot(fpr, tpr, color='blue', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)
+# # # plt.plot([0, 1], [0, 1], color='red', lw=2, linestyle='--')
+# # # plt.xlim([0.0, 1.0])
+# # # plt.ylim([0.0, 1.05])
+# # # plt.xlabel('False Positive Rate')
+# # # plt.ylabel('True Positive Rate')
+# # # plt.title('Receiver Operating Characteristic (ROC) Curve')
+# # # plt.legend(loc="lower right")
+# # # plt.show()
+# #
+# #
+# # # Gradient Boosting
+# # gradient_boost_model = GradientBoostingClassifier(random_state=42)
+# # gradient_boost_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+# # gradient_boost_preds = gradient_boost_model.predict(X_test.reshape(X_test.shape[0], -1))
+# # print("Gradient Boosting Accuracy:", accuracy_score(y_test, gradient_boost_preds))
+# # print("Gradient Boosting Classification Report:")
+# # print(classification_report(y_test, gradient_boost_preds))
+# #
+# # # Calculate and plot ROC curve for Gradient Boosting
+# # # gradient_boost_probs = gradient_boost_model.predict_proba(X_test.reshape(X_test.shape[0], -1))[:, 1]
+# # # fpr, tpr, thresholds = roc_curve(y_test, gradient_boost_probs)
+# # # roc_auc = auc(fpr, tpr)
+# # #
+# # # plt.figure(figsize=(8, 6))
+# # # plt.plot(fpr, tpr, color='blue', lw=2, label='ROC curve (area = %0.2f)' % roc_auc)
+# # # plt.plot([0, 1], [0, 1], color='red', lw=2, linestyle='--')
+# # # plt.xlim([0.0, 1.0])
+# # # plt.ylim([0.0, 1.05])
+# # # plt.xlabel('False Positive Rate')
+# # # plt.ylabel('True Positive Rate')
+# # # plt.title('Receiver Operating Characteristic (ROC) Curve')
+# # # plt.legend(loc="lower right")
+# # # plt.show()
+#
+#
+#
+#
+# import numpy as np
+# import pandas as pd
+# import matplotlib.pyplot as plt
+# import tensorflow as tf
+# from sklearn.model_selection import train_test_split
+# from sklearn.metrics import accuracy_score, classification_report
+# from sklearn.naive_bayes import GaussianNB
+# from sklearn.neighbors import KNeighborsClassifier
+# from sklearn.linear_model import LogisticRegression
+# from sklearn.tree import DecisionTreeClassifier
+# from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
+#
+# # Suppress warnings
+# import warnings
+# warnings.filterwarnings('ignore', category=Warning)
+#
+# # Load data
+# s_files = ["s00.csv", "s01.csv", "s02.csv", "s03.csv", "s04.csv", "s05.csv", "s06.csv", "s07.csv",
+#            "s08.csv", "s09.csv", "s10.csv", "s11.csv", "s12.csv", "s13.csv", "s14.csv", "s15.csv",
+#            "s16.csv", "s17.csv", "s18.csv", "s19.csv", "s20.csv", "s21.csv", "s22.csv", "s23.csv",
+#            "s24.csv", "s25.csv", "s26.csv", "s27.csv", "s28.csv", "s29.csv", "s30.csv", "s31.csv",
+#            "s32.csv", "s33.csv", "s34.csv", "s35.csv"]
+#
+# s_list = [pd.read_csv(f"D:\\data\\Data2\\{file}", header=None).transpose().to_numpy() for file in s_files]
+#
+# dataset = np.array(s_list)
+#
+# # Target labels
+# y = np.array([0, 1] * 18)  # Assuming there are 36 samples and their corresponding labels
+#
+# # Reshape the dataset
+# dataset = dataset.reshape(36, 1, 760, 775)
+#
+# # Setting global random seed for model stability
+# seed = 42
+# tf.random.set_seed(seed)
+#
+# # Split the data into training and testing sets
+# X_train, X_test, y_train, y_test = train_test_split(dataset, y, test_size=0.2, random_state=42)
+#
+# # Dictionary to store results
+# results = []
+#
+# def save_classification_report(report, classifier_name):
+#     report_df = pd.DataFrame(report).transpose()
+#     report_df.insert(0, 'Classifier', classifier_name)
+#     return report_df
+#
+# def save_results_to_file(classifier_name, accuracy, report):
+#     filename = f"D:\\data\\Data2\\{classifier_name}_results.csv"
+#     report_df = pd.DataFrame(report).transpose()
+#     report_df['accuracy'] = accuracy
+#     report_df.to_csv(filename, index=False)
+#
+# # Naive Bayes classifier
+# nb_model = GaussianNB()
+# nb_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+# nb_preds = nb_model.predict(X_test.reshape(X_test.shape[0], -1))
+#
+# # Evaluate Naive Bayes classifier
+# nb_accuracy = accuracy_score(y_test, nb_preds)
+# nb_report = classification_report(y_test, nb_preds, output_dict=True)
+# nb_report_df = save_classification_report(nb_report, 'Naive Bayes')
+# save_results_to_file('Naive_Bayes', nb_accuracy, nb_report)
+# results.append(nb_report_df)
+# print("Naive Bayes Accuracy:", nb_accuracy)
+# print("Naive Bayes Classification Report:")
+# print(classification_report(y_test, nb_preds))
+#
+# # K-Nearest Neighbors (KNN) classifier
+# knn_model = KNeighborsClassifier(n_neighbors=5)
+# knn_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+# knn_preds = knn_model.predict(X_test.reshape(X_test.shape[0], -1))
+#
+# # Evaluate KNN classifier
+# knn_accuracy = accuracy_score(y_test, knn_preds)
+# knn_report = classification_report(y_test, knn_preds, output_dict=True)
+# knn_report_df = save_classification_report(knn_report, 'KNN')
+# save_results_to_file('KNN', knn_accuracy, knn_report)
+# results.append(knn_report_df)
+# print("KNN Accuracy:", knn_accuracy)
+# print("KNN Classification Report:")
+# print(classification_report(y_test, knn_preds))
+#
+# # Logistic Regression
+# logistic_model = LogisticRegression(max_iter=1000)
+# logistic_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+# logistic_preds = logistic_model.predict(X_test.reshape(X_test.shape[0], -1))
+# logistic_accuracy = accuracy_score(y_test, logistic_preds)
+# logistic_report = classification_report(y_test, logistic_preds, output_dict=True)
+# logistic_report_df = save_classification_report(logistic_report, 'Logistic Regression')
+# save_results_to_file('Logistic_Regression', logistic_accuracy, logistic_report)
+# results.append(logistic_report_df)
+# print("Logistic Regression Accuracy:", logistic_accuracy)
+# print("Logistic Regression Classification Report:")
+# print(classification_report(y_test, logistic_preds))
+#
+# # Decision Tree
+# decision_tree_model = DecisionTreeClassifier(random_state=50)
+# decision_tree_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+# decision_tree_preds = decision_tree_model.predict(X_test.reshape(X_test.shape[0], -1))
+# decision_tree_accuracy = accuracy_score(y_test, decision_tree_preds)
+# decision_tree_report = classification_report(y_test, decision_tree_preds, output_dict=True)
+# decision_tree_report_df = save_classification_report(decision_tree_report, 'Decision Tree')
+# save_results_to_file('Decision_Tree', decision_tree_accuracy, decision_tree_report)
+# results.append(decision_tree_report_df)
+# print("Decision Tree Accuracy:", decision_tree_accuracy)
+# print("Decision Tree Classification Report:")
+# print(classification_report(y_test, decision_tree_preds))
+#
+# # Random Forest
+# random_forest_model = RandomForestClassifier(random_state=42)
+# random_forest_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+# random_forest_preds = random_forest_model.predict(X_test.reshape(X_test.shape[0], -1))
+# random_forest_accuracy = accuracy_score(y_test, random_forest_preds)
+# random_forest_report = classification_report(y_test, random_forest_preds, output_dict=True)
+# random_forest_report_df = save_classification_report(random_forest_report, 'Random Forest')
+# save_results_to_file('Random_Forest', random_forest_accuracy, random_forest_report)
+# results.append(random_forest_report_df)
+# print("Random Forest Accuracy:", random_forest_accuracy)
+# print("Random Forest Classification Report:")
+# print(classification_report(y_test, random_forest_preds))
+#
+# # Gradient Boosting
+# gradient_boost_model = GradientBoostingClassifier(n_estimators=50, random_state=42)  # Reduced number of estimators
+# gradient_boost_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+# gradient_boost_preds = gradient_boost_model.predict(X_test.reshape(X_test.shape[0], -1))
+# gradient_boost_accuracy = accuracy_score(y_test, gradient_boost_preds)
+# gradient_boost_report = classification_report(y_test, gradient_boost_preds, output_dict=True)
+# gradient_boost_report_df = save_classification_report(gradient_boost_report, 'Gradient Boosting')
+# save_results_to_file('Gradient_Boosting', gradient_boost_accuracy, gradient_boost_report)
+# results.append(gradient_boost_report_df)
+# print("Gradient Boosting Accuracy:", gradient_boost_accuracy)
+# print("Gradient Boosting Classification Report:")
+# print(classification_report(y_test, gradient_boost_preds))
+#
+# # Combine all results into a single DataFrame
+# combined_results_df = pd.concat(results)
+#
+# # Save the combined results to a CSV file
+# combined_results_df.to_csv("D:\\data\\Data2\\all_classifier_results.csv", index=False)
+#
+# # Plotting the results
+# accuracies = combined_results_df[combined_results_df.index == 'accuracy']
+# plt.figure(figsize=(10, 6))
+# plt.bar(accuracies['Classifier'], accuracies['precision'], color=['blue', 'orange', 'green', 'red', 'purple', 'brown'])
+# plt.xlabel('Classifiers')
+# plt.ylabel('Accuracy')
+# plt.title('Classifier Comparison')
+# plt.xticks(rotation=45)
+# plt.tight_layout()
+# plt.savefig("D:\\data\\Data2\\classifier_comparison.png")
+# plt.show()
+
+
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import tensorflow as tf
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
+
+# Suppress warnings
+import warnings
+warnings.filterwarnings('ignore', category=Warning)
+
+# Load data
+s_files = ["s00.csv", "s01.csv", "s02.csv", "s03.csv", "s04.csv", "s05.csv", "s06.csv", "s07.csv",
+           "s08.csv", "s09.csv", "s10.csv", "s11.csv", "s12.csv", "s13.csv", "s14.csv", "s15.csv",
+           "s16.csv", "s17.csv", "s18.csv", "s19.csv", "s20.csv", "s21.csv", "s22.csv", "s23.csv",
+           "s24.csv", "s25.csv", "s26.csv", "s27.csv", "s28.csv", "s29.csv", "s30.csv", "s31.csv",
+           "s32.csv", "s33.csv", "s34.csv", "s35.csv"]
+
+s_list = [pd.read_csv(f"D:\\data\\Data2\\{file}", header=None).transpose().to_numpy() for file in s_files]
+
+dataset = np.array(s_list)
+
+# Target labels
+y = np.array([0, 1] * 18)  # Assuming there are 36 samples and their corresponding labels
+
+# Reshape the dataset
+dataset = dataset.reshape(36, 1, 760, 775)
+
+# Setting global random seed for model stability
+seed = 42
+tf.random.set_seed(seed)
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(dataset, y, test_size=0.2, random_state=42)
+
+# Dictionary to store results
+results = {}
+
+# Naive Bayes classifier
+nb_model = GaussianNB()
+nb_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+nb_preds = nb_model.predict(X_test.reshape(X_test.shape[0], -1))
+
+# Evaluate Naive Bayes classifier
+nb_accuracy = accuracy_score(y_test, nb_preds)
+results['Naive Bayes'] = nb_accuracy
+print("Naive Bayes Accuracy:", nb_accuracy)
+print("Naive Bayes Classification Report:")
+print(classification_report(y_test, nb_preds))
+
+# K-Nearest Neighbors (KNN) classifier
+knn_model = KNeighborsClassifier(n_neighbors=5)
+knn_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+knn_preds = knn_model.predict(X_test.reshape(X_test.shape[0], -1))
+
+# Evaluate KNN classifier
+knn_accuracy = accuracy_score(y_test, knn_preds)
+results['KNN'] = knn_accuracy
+print("KNN Accuracy:", knn_accuracy)
+print("KNN Classification Report:")
+print(classification_report(y_test, knn_preds))
+
+# Logistic Regression
+logistic_model = LogisticRegression(max_iter=1000)
+logistic_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+logistic_preds = logistic_model.predict(X_test.reshape(X_test.shape[0], -1))
+logistic_accuracy = accuracy_score(y_test, logistic_preds)
+results['Logistic Regression'] = logistic_accuracy
+print("Logistic Regression Accuracy:", logistic_accuracy)
+print("Logistic Regression Classification Report:")
+print(classification_report(y_test, logistic_preds))
+
+# Decision Tree
+decision_tree_model = DecisionTreeClassifier(random_state=50)
+decision_tree_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+decision_tree_preds = decision_tree_model.predict(X_test.reshape(X_test.shape[0], -1))
+decision_tree_accuracy = accuracy_score(y_test, decision_tree_preds)
+results['Decision Tree'] = decision_tree_accuracy
+print("Decision Tree Accuracy:", decision_tree_accuracy)
+print("Decision Tree Classification Report:")
+print(classification_report(y_test, decision_tree_preds))
+
+# Random Forest
+random_forest_model = RandomForestClassifier(random_state=42)
+random_forest_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+random_forest_preds = random_forest_model.predict(X_test.reshape(X_test.shape[0], -1))
+random_forest_accuracy = accuracy_score(y_test, random_forest_preds)
+results['Random Forest'] = random_forest_accuracy
+print("Random Forest Accuracy:", random_forest_accuracy)
+print("Random Forest Classification Report:")
+print(classification_report(y_test, random_forest_preds))
+
+# Gradient Boosting
+gradient_boost_model = GradientBoostingClassifier(n_estimators=50, random_state=42)  # Reduced number of estimators
+gradient_boost_model.fit(X_train.reshape(X_train.shape[0], -1), y_train)
+gradient_boost_preds = gradient_boost_model.predict(X_test.reshape(X_test.shape[0], -1))
+gradient_boost_accuracy = accuracy_score(y_test, gradient_boost_preds)
+results['Gradient Boosting'] = gradient_boost_accuracy
+print("Gradient Boosting Accuracy:", gradient_boost_accuracy)
+print("Gradient Boosting Classification Report:")
+print(classification_report(y_test, gradient_boost_preds))
+
+# Save the results to a CSV file
+results_df = pd.DataFrame.from_dict(results, orient='index', columns=['Accuracy'])
+results_df.to_csv("D:\\data\\Data2\\classifier_results.csv")
+
+# Plotting the results
+plt.figure(figsize=(10, 6))
+plt.bar(results.keys(), results.values(), color=['blue', 'orange', 'green', 'red', 'purple', 'brown'])
+plt.xlabel('Classifiers')
+plt.ylabel('Accuracy')
+plt.title('Classifier Comparison')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig("D:\\data\\Data2\\classifier_comparison.png")
+plt.show()
